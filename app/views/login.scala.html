@@ -1,0 +1,26 @@
+@(username: String, password: String)
+
+<!DOCTYPE html>
+
+<html>
+<head>
+	<title>Login</title>
+	<script src='@routes.Assets.at("javascripts/test.js")'></script>
+	<script src='@routes.Assets.at("javascripts/vendor/knockout.js")'></script>
+</head>
+<body>
+	<input type="text" data-bind="text: myName">
+	Successfully logged in.	
+	Username = @username.
+	Password = @password.
+	<p>The name is: <span data-bind="text: myName"></span></p>
+	<script>
+		function ViewModel() {  
+			var self = this;  
+			self.myName = ko.observable();  
+		}  
+
+		ko.applyBindings(new ViewModel());
+	</script>
+</body>
+</html>
