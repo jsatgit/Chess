@@ -266,10 +266,10 @@ function initPieces() {
 	pb.create("blackBishop", 2, 0);
 	pb.create("blackQueen",  3, 0);
 	
-	pb.create("blackKing", 	4, 0);
+	pb.create("blackKing", 	 4, 0);
 	pb.create("blackBishop", 5, 0);
 	pb.create("blackKnight", 6, 0);
-	pb.create("blackRook", 	7, 0);
+	pb.create("blackRook", 	 7, 0);
 }
 
 
