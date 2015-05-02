@@ -2,7 +2,8 @@ define(['config',
         'human', 
         'computer',
         'constants',
-        'utils'], function(Config, Human, Computer, Const, Utils) {
+        'utils',
+        'moves'], function(Config, Human, Computer, Const, Utils, Moves) {
     
     var whitePlayer;
     var blackPlayer;
@@ -20,6 +21,7 @@ define(['config',
     function init(model, controller) {
         whitePlayer = Human;
         blackPlayer = Computer;
+        Moves.init(model);
         Computer.init(Const.BLACK, model, controller);
         currentPlayer = whitePlayer;
     }
