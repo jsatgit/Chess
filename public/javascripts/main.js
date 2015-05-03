@@ -1,7 +1,8 @@
 require.config({
     paths: {
         snap: 'vendors/snap',
-        jquery: 'vendors/jquery'
+        jquery: 'vendors/jquery',
+        domReady: 'vendors/domReady'
     },
     shim: {
         'snap': {

@@ -27,7 +27,6 @@ define(['boardView',
         // need better interfae
         this.movePiece = function(xSource, ySource, xDest, yDest) {
             handleTarget(xDest, yDest);
-
             var piece = grid.get(xSource, ySource); 
             grid.reset(xSource, ySource);
             grid.set(piece, xDest, yDest);

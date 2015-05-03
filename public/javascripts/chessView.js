@@ -57,9 +57,20 @@ define(['clickHandler',
         pieceBuilder.build("blackKnight", 6, 0);
         pieceBuilder.build("blackRook",   7, 0);
 
+        var uiLoaded;
+
+        this.isUiLoaded = function() {
+            return uiLoaded;
+        } 
+
         this.onAllPiecesLoaded = function() {
             console.log("UI Loaded!");
+            uiLoaded = true;
         } 
+
+        this.movePiece = function(xSrc, ySrc, xDest, yDest) {
+            board.movePiece(xSrc, ySrc, xDest, yDest);
+        }
 
     }		
 
