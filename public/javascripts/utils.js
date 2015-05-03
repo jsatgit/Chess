@@ -1,14 +1,19 @@
 define(['constants'], function(Const) {
-    function setCoords(item, x, y) {
+
+    // TODO remove and diversify
+
+    var Utils = {};
+
+    Utils.setCoords = function(item, x, y) {
         item.attr("xCoord", x); 
         item.attr("yCoord", y); 
     }
 	
-    function getXCoord(element) {
+    Utils.getXCoord = function(element) {
         return element.attr("xCoord");
     }
     
-    function getYCoord(element) {
+    Utils.getYCoord = function(element) {
         return element.attr("yCoord");
     }
 
@@ -16,18 +21,18 @@ define(['constants'], function(Const) {
         return this.indexOf(str) == 0;
     };
 
-    function isWhite(piece) {
+    Utils.isWhite = function(piece) {
         var id = piece.attr("id");
         return id.startsWith("white");
     }
 
     // TODO perhaps integrate this into the piece
-    function type(piece) {
+    Utils.type = function(piece) {
         var id = piece.attr("id");
         return id.substr(5, id.length - 5);
     }
 
-    function getAllSquares() {
+    Utils.getAllSquares = function() {
         if (!this.squares) {
             this.squares = [];
             // TODO change this 8 to a constant
@@ -39,13 +44,13 @@ define(['constants'], function(Const) {
         }
         return this.squares;
     }
+        
+    Utils.removeFromArray = function(array, item) {
+        var index = array.indexOf(item);
+        if (index > -1) {
+            array.splice(index, 1);
+        }
+    }
 
-	return {
-        setCoords       : setCoords,
-        getXCoord       : getXCoord,
-        getYCoord       : getYCoord,
-        isWhite         : isWhite,
-        getAllSquares   : getAllSquares,
-        type            : type
-	};
+    return Utils;
 });

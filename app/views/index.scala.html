@@ -1,13 +1,11 @@
-@()
-
 <!DOCTYPE html>
 
 <html>
     <head>
         <title>Chess</title>
 		<link rel="shortcut icon" href="/assets/images/favicon.ico"/>
-		@helper.requireJs(core = routes.Assets.at("javascripts/require.js").url,
-		module = routes.Assets.at("javascripts/main").url)
+        <script data-main="assets/javascripts/main" src="assets/javascripts/vendors/require.js"></script>
+        <link rel="stylesheet" href="/assets/stylesheets/main.css">
     </head>
 	<body>
     </body>

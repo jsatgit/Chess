@@ -1,6 +1,8 @@
-define(['assets/javascripts/vendor/snap.js',
+define(['snap',
         'utils',
         'config'], function(Snap, Utils, Config) {
+
+    var PieceView = {};
 
     function getMatrix(x, y) {
 		var mat = new Snap.Matrix();
@@ -9,25 +11,21 @@ define(['assets/javascripts/vendor/snap.js',
         return mat;
     }
 
-    function place(piece, x, y) {
+    PieceView.place = function(piece, x, y) {
         Utils.setCoords(piece, x, y);
         var mat = getMatrix(x, y);
 		piece.animate({transform: mat}, 0);
     }
 
-    function move(piece, x, y) {
+    PieceView.move = function(piece, x, y) {
         Utils.setCoords(piece, x, y);
         var mat = getMatrix(x, y);
         piece.animate({transform: mat}, Config.view.moveTime);
     }
 
-    function remove(piece) {
+    PieceView.remove = function(piece) {
         piece.remove();
     }
 
-    return {
-        place   : place,
-        move    : move,
-        remove  : remove
-    };
+    return PieceView; 
 });

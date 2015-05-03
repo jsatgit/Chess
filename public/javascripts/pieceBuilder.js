@@ -1,44 +1,44 @@
-define(['assets/javascripts/vendor/snap.js',
+define(['snap',
 		'config',
-		'clickHandler',
-        'view',
-        'loader',
-        'board',
-        'model'], function(Snap, Config, ClickHandler, View, Loader, Board, Model) {
+        'pieceView'], function(Snap, Config, PieceView) {
 
-	function getPath(name) {
-		return "/assets/images/chesspieces/" + name + ".svg";
-	}
+    function PieceBuilder(board, sides, loader, clickHandler) {
+        
+        var board = board;
+        var sides = sides;
+        var loader = loader;
+        var clickHandler = clickHandler;
 
-	function onLoaded(name, svg) {
-		var piece = svg2Piece(name, svg);
-		var pos = Loader.dequeue(name);
+        function getPath(name) {
+            return "/assets/images/chesspieces/" + name + ".svg";
+        }
 
-        // TODO gather together
-		ClickHandler.registerPiece(piece);
-        Board.append(piece);
-		View.place(piece, pos.x, pos.y);
-        Model.setPiece(piece, pos.x, pos.y);
-        Model.store(piece);
+        function onLoaded(name, svg) {
+            var piece = svg2Piece(name, svg);
+            var pos = loader.dequeue(name);
 
-        // TODO what about loaded promoted pieces
-        Loader.notify(name);
-	}
+            sides.add(piece);
+            board.append(piece, pos.x, pos.y);
+            clickHandler.registerPiece(piece);
+            PieceView.place(piece, pos.x , pos.y);
 
-	function svg2Piece(name, svg) {
-		return svg.select("#" + name);
-	}
-    
-	function create(name, x, y) {
-		Loader.enqueue(name, x, y);
-		var path = getPath(name);
-		Snap.load(path, function(svg) {
-			onLoaded(name, svg);
-		});
-		return name;
-	}
-	
-	return {
-        create  : create
+            // TODO what about loaded promoted pieces
+            loader.notify(name);
+        }
+
+        function svg2Piece(name, svg) {
+            return svg.select("#" + name);
+        }
+        
+        this.build = function(name, x, y) {
+            loader.enqueue(name, x, y);
+            var path = getPath(name);
+            Snap.load(path, function(svg) {
+                onLoaded(name, svg);
+            });
+            return name;
+        }
     }
+	
+	return PieceBuilder; 
 })
