@@ -1,0 +1,30 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+App	App.java	/^public class App {$/;"	c
+BLACK	Colour.java	/^    BLACK, $/;"	e	enum:Colour	file:
+Board	Board.java	/^public class Board {$/;"	c
+Colour	Colour.java	/^public enum Colour {$/;"	g
+Location	Location.java	/^    Location(int x, int y) {$/;"	m	class:Location
+Location	Location.java	/^public class Location {$/;"	c
+Piece	Piece.java	/^    public Piece(Colour colour, Location location, Board board) {$/;"	m	class:Piece
+Piece	Piece.java	/^public abstract class Piece {$/;"	c
+Queen	Queen.java	/^    public Queen() {$/;"	m	class:Queen
+Queen	Queen.java	/^public class Queen extends Piece {$/;"	c
+WHITE	Colour.java	/^    WHITE$/;"	e	enum:Colour	file:
+board	Piece.java	/^    private Board board;$/;"	f	class:Piece	file:
+colour	Piece.java	/^    private Colour colour;$/;"	f	class:Piece	file:
+com.chess.app	App.java	/^package com.chess.app;$/;"	p
+com.chess.app	Board.java	/^package com.chess.app;$/;"	p
+com.chess.app	Colour.java	/^package com.chess.app;$/;"	p
+com.chess.app	Location.java	/^package com.chess.app;$/;"	p
+com.chess.app	Piece.java	/^package com.chess.app;$/;"	p
+com.chess.app	Queen.java	/^package com.chess.app;$/;"	p
+location	Piece.java	/^    private Location location;$/;"	f	class:Piece	file:
+main	App.java	/^    public static void main(String[] args) {$/;"	m	class:App
+print	App.java	/^    public static void print(String str) {$/;"	m	class:App
+x	Location.java	/^    private int x;$/;"	f	class:Location	file:
+y	Location.java	/^    private int y;$/;"	f	class:Location	file:

@@ -11,8 +11,4 @@ public class Application extends Controller {
         return ok(index.render());
     }
 
-	public static Result login(String username, String password) {
-
-		return ok(login.render(username, password));
-	}
 }
