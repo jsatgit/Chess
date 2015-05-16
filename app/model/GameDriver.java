@@ -3,9 +3,8 @@ package com.chess.app;
 public class GameDriver {
 
     public void play() {
-        Board board = new Board();
-        Human human = new Human(board);
-        Computer computer = new Computer(board);
+        Human human = new Human();
+        Computer computer = new Computer();
         Game myGame = new Game()
             .withWhitePlayer(human)
             .withBlackPlayer(computer)

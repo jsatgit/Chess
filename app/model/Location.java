@@ -1,5 +1,7 @@
 package com.chess.app;
 
+import com.fasterxml.jackson.databind.JsonNode;
+
 public class Location {
     public int x;
     public int y;

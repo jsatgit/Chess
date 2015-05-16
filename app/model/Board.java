@@ -4,7 +4,7 @@ public class Board {
     public static final int MAX_ROWS = 8;
     public static final int MAX_COLUMNS = 8;
 
-    Piece[][] grid; 
+    private Piece[][] grid; 
 
     public Piece get(Location location) {
         return grid[location.y][location.x]; 
@@ -64,7 +64,8 @@ public class Board {
         grid[location.y][location.x] = null;
     }
 
-    public void movePiece(Piece piece, Location src, Location dest) {
+    public void move(Location src, Location dest) {
+        Piece piece = get(src);
         evacuateLocation(src);
         place(piece, dest); 
     }

@@ -46,6 +46,14 @@ define(['snap',
         this.append = function(piece) {
             board.append(piece);
         }
+
+        this.highlightPassing = function(x, y) {
+            setupSquare(x, y, {
+                fill : "green",
+                stroke : "green",
+                strokeWidth: 0
+            }); 
+        }
     }
 
     return BoardView;

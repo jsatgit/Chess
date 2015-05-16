@@ -2,9 +2,9 @@ package com.chess.app;
 import java.util.List;
 
 public class King extends PieceImpl {
-    public King(Player owner, Board board) {
-        super(owner, board); 
-        directions = new DirectionsBuilder(owner.getColour(), board)
+    public King(Colour colour, Location location) {
+        super(colour, location); 
+        directions = new DirectionsBuilder(colour)
             .with(new UpperRightDiagonal(1))
             .with(new UpperLeftDiagonal(1))
             .with(new LowerRightDiagonal(1))

@@ -16,6 +16,10 @@ public interface Piece {
     void destroy();
 
     void setLocation(Location location);
+    
+    Location getLocation();
+
+    void setBoard(Board board);
 
     Moves getCaptureMoves();
 }

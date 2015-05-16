@@ -1,17 +1,25 @@
 define(['utils',
         'constants'], function(Utils) {
 
-    function ClickHandler() {
+    function ClickHandler(connection) {
 
         var sourceSelected;
         var board;
+        var connection;
 
         function unSelectSource() {
             sourceSelected = undefined;
        }
 
         function selectSource(x, y) {
+            console.log("selected");
             sourceSelected = {x:x, y:y};
+            connection.send({
+                select: {
+                    x: x,
+                    y: y
+                } 
+            });
         }
 
         // TODO clean up

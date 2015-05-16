@@ -6,24 +6,22 @@ import java.lang.reflect.Constructor;
 public class DirectionsBuilder {
     private List<Direction> directions;
     private Colour colour;
-    private Board board;
 
-    public DirectionsBuilder(Colour colour, Board board) {
+    public DirectionsBuilder(Colour colour) {
         this.directions = new ArrayList();
         this.colour = colour;
-        this.board = board;
     }
     
-    public DirectionsBuilder(List<Direction> directions, Colour colour, Board board) {
+    public DirectionsBuilder(List<Direction> directions, Colour colour) {
         this.directions = directions;
         this.colour = colour;
-        this.board = board;
     }
 
     public DirectionsBuilder without(Class<?> clazz) {
         for (Direction direction : directions) {
             if (clazz.isInstance(direction)) {
                 directions.remove(direction);
+                break;
             }
         } 
         return this;
@@ -31,7 +29,6 @@ public class DirectionsBuilder {
 
     public DirectionsBuilder with(Direction direction) {
         direction.setReflectionByColour(colour);
-        direction.setBoard(board);
         directions.add(direction); 
         return this; 
     }

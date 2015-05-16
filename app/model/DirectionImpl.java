@@ -6,7 +6,6 @@ public abstract class DirectionImpl implements Direction {
     private boolean forPassing;
     private boolean forCapturing;
     protected Colour colour;
-    protected Board board;
 
     public DirectionImpl(int maxMoves) {
         this.maxMoves = maxMoves;
@@ -17,10 +16,6 @@ public abstract class DirectionImpl implements Direction {
     public void setReflectionByColour(Colour colour) {
         this.reflection = (colour == Colour.WHITE) ? 1 : -1;
         this.colour = colour;
-    }
-
-    public void setBoard(Board board) {
-        this.board = board;
     }
 
     public Direction withColour(Colour colour) {
@@ -68,11 +63,11 @@ public abstract class DirectionImpl implements Direction {
         return forCapturing; 
     }
 
-    public boolean isForPassing(Location dest) {
+    public boolean isForPassing(Location dest, Board board) {
         return forPassing; 
     }
     
-    public boolean isForCapturing(Location dest) {
+    public boolean isForCapturing(Location dest, Board board) {
         return forCapturing; 
     }
 

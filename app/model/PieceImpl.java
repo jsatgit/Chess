@@ -3,27 +3,38 @@ import java.util.List;
 import java.util.ArrayList;
 
 public abstract class PieceImpl implements Piece {
-    protected Colour colour;
-    protected Location location;
+    private Player owner;
     protected Board board;
+    protected Colour colour;
+    private Location location;
+
     private boolean hasMoved;
     private Moves moves;
+
     protected List<Direction> directions;
-    private Player owner;
 
-    public PieceImpl(Player owner, Board board) {
-        this.owner = owner;
+    public PieceImpl(Colour colour, Location location) {
+        this.colour = colour;
+        this.location = location;
+
+        this.hasMoved = false;
+        this.moves = new Moves();
+    }
+
+    public void setBoard(Board board) {
         this.board = board;
-
-        this.colour      = owner.getColour();
-        this.hasMoved    = false;
-        this.moves       = new Moves();
-
-        this.owner.addPiece(this);
     }
 
     public void setLocation(Location location) {
        this.location = location; 
+    }
+    
+    public Location getLocation() {
+        return this.location;
+    }
+
+    public void setOwner(Player player) {
+        this.owner = player;
     }
 
     public boolean hasNotMoved() {
@@ -47,13 +58,13 @@ public abstract class PieceImpl implements Piece {
     } 
 
     private void maybeAddPassing(Location testLocation, Direction direction) {
-        if (direction.isForPassing(location)) {
+        if (direction.isForPassing(location, board)) {
             moves.addPassing(testLocation); 
         }
     }
 
     private void maybeAddCapturing(Location testLocation, Direction direction) {
-        if (direction.isForCapturing(location) && 
+        if (direction.isForCapturing(location, board) && 
             board.isOccupiedByOpponent(colour, testLocation)) {
             moves.addCapturing(testLocation);
         }
@@ -98,9 +109,10 @@ public abstract class PieceImpl implements Piece {
     }
 
     public void moveTo(Location dest) {
+        // TODO check for legal moves
         beforeMove(location, dest);
         captureIfPieceExists(dest);
-        board.movePiece(this, location, dest);
+        board.move(location, dest);
         hasMoved = true;
     }
 

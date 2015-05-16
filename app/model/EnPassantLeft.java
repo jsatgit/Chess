@@ -11,7 +11,7 @@ public class EnPassantLeft extends DirectionImpl {
     }
 
     @Override
-    public boolean isForCapturing(Location dest) {
+    public boolean isForCapturing(Location dest, Board board) {
         Piece piece = board.get(dest);
         if (piece instanceof Pawn) { 
             Pawn pawn = (Pawn)piece;

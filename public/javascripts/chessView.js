@@ -2,14 +2,15 @@ define(['clickHandler',
         'board', 
         'sides',
         'loader',
-        'pieceBuilder'], function(ClickHandler, Board, Sides, Loader, PieceBuilder) {
+        'pieceBuilder',
+        'utils'], function(ClickHandler, Board, Sides, Loader, PieceBuilder, Utils) {
 
-    function ChessView() {
-        var clickHandler = new ClickHandler();
+    function ChessView(connection) {
+        var clickHandler = new ClickHandler(connection);
         
         var sides = new Sides();
 
-        var board = new Board(clickHandler, sides);
+        var board = new Board(clickHandler, sides, connection);
 
         clickHandler.setBoard(board);
 
@@ -70,6 +71,36 @@ define(['clickHandler',
 
         this.movePiece = function(xSrc, ySrc, xDest, yDest) {
             board.movePiece(xSrc, ySrc, xDest, yDest);
+        }
+
+        function addPiecesToJson(pieces, jsonArray) {
+            pieces.forEach(function(piece) {
+                jsonArray.push({
+                    type: Utils.type(piece),
+                    colour: Utils.getColourEnum(piece),
+                    location: {
+                        x: Utils.getXCoord(piece),
+                        y: Utils.getYCoord(piece)
+                    }
+                }); 
+            });
+        }
+
+        this.getConfig = function() {
+            var config = {
+                setup : {}
+            }; 
+
+            config.setup.pieces = [];
+            addPiecesToJson(sides.getWhitePieces(), config.setup.pieces);
+            addPiecesToJson(sides.getBlackPieces(), config.setup.pieces);
+
+            config.setup.players = {
+                white: "human",
+                black: "human"
+            }
+
+            return config;
         }
 
     }		

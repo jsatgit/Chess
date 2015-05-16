@@ -1,13 +1,16 @@
 define(['domReady',
         'jquery',
         'chessView',
-        ], function(domReady, $, ChessView) {
+        'connection'], function(domReady, $, ChessView, Connection) {
+    
+    var connection = new Connection();
 
-    var chessView = new ChessView();
+    var chessView = new ChessView(connection);
 
     $("#startGame").click(function() {
-        if (chessView.isUiLoaded()) {
-            console.log("Starting game");
+        if (chessView.isUiLoaded() && connection.isEstablished()) {
+            connection.send(chessView.getConfig());
         }
     });
+
 });

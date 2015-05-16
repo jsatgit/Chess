@@ -2,10 +2,22 @@ define(['boardView',
         'grid',
         'pieceView'], function(BoardView, Grid, PieceView) {
 
-    function Board(clickHandler, sides) {
+    function Board(clickHandler, sides, connection) {
         var boardView = new BoardView(clickHandler);
         var grid = new Grid();
         var sides = sides;
+        var connection = connection;
+
+        connection.register(onMessage);
+
+        function onMessage(message) {
+            if (message.moves) {
+                var passingMoves = message.moves.passing;
+                passingMoves.forEach(function(location) {
+                    boardView.highlightPassing(location.x, location.y); 
+                });
+            }
+        }
 
         function capture(target, x, y) {
             // TODO it checks even if the piece doesnt belong to you
@@ -26,6 +38,18 @@ define(['boardView',
         // TODO need abstraction for below 
         // need better interfae
         this.movePiece = function(xSource, ySource, xDest, yDest) {
+            connection.send({
+                move: {
+                    src: {
+                        x: xSource,
+                        y: ySource
+                    }, dest: {
+                        x: xDest,
+                        y: yDest
+                    }
+                } 
+            });
+
             handleTarget(xDest, yDest);
             var piece = grid.get(xSource, ySource); 
             grid.reset(xSource, ySource);

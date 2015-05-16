@@ -11,9 +11,14 @@ public abstract class Player {
     private List<Piece> pieces;
     private TargetComputer targetComputer;
 
-    public Player(Board board) {
-        this.board = board;
+    public Player() {
         this.pieces = new ArrayList();
+    }
+
+    public void setBoard(Board board) {
+        this.board = board; 
+
+        // TODO maybe separate this
         this.targetComputer = new TargetComputer(board);
     }
 

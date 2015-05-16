@@ -25,6 +25,22 @@ define(['constants'], function(Const) {
         var id = piece.attr("id");
         return id.startsWith("white");
     }
+    
+    Utils.getColour = function(piece) {
+        if (Utils.isWhite(piece)) {
+            return "white";
+        } else {
+            return "black";
+        }
+    }
+    
+    Utils.getColourEnum = function(piece) {
+        if (Utils.isWhite(piece)) {
+            return "WHITE";
+        } else {
+            return "BLACK";
+        }
+    }
 
     // TODO perhaps integrate this into the piece
     Utils.type = function(piece) {

@@ -2,9 +2,9 @@ package com.chess.app;
 import java.util.List;
 
 public class Queen extends PieceImpl {
-    public Queen(Player owner, Board board) {
-        super(owner, board); 
-        directions = new DirectionsBuilder(owner.getColour(), board)
+    public Queen(Colour colour, Location location) {
+        super(colour, location); 
+        directions = new DirectionsBuilder(colour)
             .with(new UpperRightDiagonal(Integer.MAX_VALUE))
             .with(new UpperLeftDiagonal(Integer.MAX_VALUE))
             .with(new LowerRightDiagonal(Integer.MAX_VALUE))

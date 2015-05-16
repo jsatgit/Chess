@@ -5,9 +5,9 @@ import static java.lang.Math.abs;
 public class Pawn extends PieceImpl {
     private boolean justMovedTwoSquares;
 
-    public Pawn(Player owner, Board board) {
-        super(owner, board); 
-        directions = new DirectionsBuilder(owner.getColour(), board)
+    public Pawn(Colour colour, Location location) {
+        super(colour, location); 
+        directions = new DirectionsBuilder(colour)
             .with(new UpperRightDiagonal(1).forCapturingOnly())
             .with(new UpperLeftDiagonal(1).forCapturingOnly())
             .with(new UpperFile(2).forPassingOnly())
@@ -25,7 +25,7 @@ public class Pawn extends PieceImpl {
     public void beforeMove(Location src, Location dest) {
         if (movedTwoSquares(src, dest)) {
             justMovedTwoSquares = true;
-            directions = new DirectionsBuilder(directions, colour, board)
+            directions = new DirectionsBuilder(directions, colour)
                 .without(UpperFile.class)
                 .with(new UpperFile(1).forPassingOnly())
                 .build();

@@ -11,7 +11,7 @@ public class CastleRight extends DirectionImpl {
     }
 
     @Override
-    public boolean isForPassing(Location dest) {
+    public boolean isForPassing(Location dest, Board board) {
         return true;
     }
 }

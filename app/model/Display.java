@@ -1,5 +1,6 @@
 package com.chess.app;
 import java.util.List;
+import play.Logger;
 
 public class Display {
     private Board board;
@@ -18,17 +19,23 @@ public class Display {
 
     private String getBlackPiece(Piece piece) {
         if (piece instanceof Queen) {
-            return "♕";
+            //return "♕";
+            return "BQ";
         } else if (piece instanceof Rook) {
-            return "♖";
+            //return "♖";
+            return "BR";
         } else if (piece instanceof Bishop) {
-            return "♗";
+            //return "♗";
+            return "BB";
         } else if (piece instanceof Knight) {
-            return "♘";
+            //return "♘";
+            return "BN";
         } else if (piece instanceof Pawn) {
-            return "♙";
+            //return "♙";
+            return "BP";
         } else if (piece instanceof King) {
-            return "♔";
+            //return "♔";
+            return "BK";
         } else {
             return "?";
         }
@@ -36,17 +43,23 @@ public class Display {
 
     private String getWhitePiece(Piece piece) {
         if (piece instanceof Queen) {
-            return "♛";
+            //return "♛";
+            return "WQ";
         } else if (piece instanceof Rook) {
-            return "♜";
+            //return "♜";
+            return "WR";
         } else if (piece instanceof Bishop) {
-            return "♝";
+            //return "♝";
+            return "WB";
         } else if (piece instanceof Knight) {
-            return "♞";
+            //return "♞";
+            return "WN";
         } else if (piece instanceof Pawn) {
-            return "♟";
+            //return "♟";
+            return "WP";
         } else if (piece instanceof King) {
-            return "♚";
+            //return "♚";
+            return "WK";
         } else {
             return "?";
         }
@@ -54,7 +67,7 @@ public class Display {
 
     private String getPiece(Piece piece) {
         if (piece == null) {
-            return "_";
+            return "__";
         } else if (piece.isWhite()){
             return getWhitePiece(piece); 
         } else {
@@ -77,9 +90,9 @@ public class Display {
             for (int j = 0; j < board.MAX_ROWS; ++j) {
                 Location currentLocation = new Location(j, i);
                 if (capturing.contains(currentLocation)) {
-                    print("x"); 
+                    print("xx"); 
                 } else if (passing.contains(currentLocation)) {
-                    print("+"); 
+                    print("++"); 
                 } else {
                     String piece = getPiece(board.get(currentLocation));
                     print(piece);

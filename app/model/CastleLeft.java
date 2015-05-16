@@ -11,7 +11,7 @@ public class CastleLeft extends DirectionImpl {
     }
 
     @Override
-    public boolean isForPassing(Location dest) {
+    public boolean isForPassing(Location dest, Board board) {
         Location leftRookLocation = new Location(left(dest.x, 2), dest.y);
         Location kingLocation = new Location(right(dest.x, 2), dest.y);
         Piece leftRook = board.get(leftRookLocation);
