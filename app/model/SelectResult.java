@@ -7,23 +7,18 @@ import com.fasterxml.jackson.databind.node.ArrayNode;
 import java.util.List;
 
 public class SelectResult extends Result {
+    private Location source;
     private String resultStatus;
     private Moves moves; 
 
-    public SelectResult(Moves moves) {
+    public SelectResult(Location location, Moves moves) {
+        this.source = location;
         this.moves = moves; 
     }
 
     public SelectResult success() {
         this.resultStatus = "success";
         return this; 
-    }
-
-    private ObjectNode locationToJson(ObjectMapper mapper, Location location) {
-        ObjectNode node = mapper.createObjectNode();
-        node.put("x", location.x);
-        node.put("y", location.y);
-        return node;
     }
 
     private ArrayNode locationsToJson(ObjectMapper mapper, List<Location> locations) {
@@ -36,19 +31,20 @@ public class SelectResult extends Result {
 
     @Override
     public JsonNode toJson(ObjectMapper mapper) {
-          ObjectNode movesNode = mapper.createObjectNode();
-          ArrayNode capturingNode = locationsToJson(mapper, moves.getCapturing());
-          ArrayNode passingNode = locationsToJson(mapper, moves.getPassing());
-          movesNode.put("capturing", capturingNode);
-          movesNode.put("passing", passingNode);
+        ObjectNode movesNode = mapper.createObjectNode();
+        ArrayNode capturingNode = locationsToJson(mapper, moves.getCapturing());
+        ArrayNode passingNode = locationsToJson(mapper, moves.getPassing());
+        movesNode.put("capturing", capturingNode);
+        movesNode.put("passing", passingNode);
 
-          ObjectNode select = mapper.createObjectNode();
-          select.put("result", resultStatus);
-          select.put("moves", movesNode);
+        ObjectNode select = mapper.createObjectNode();
+        select.put("result", resultStatus);
+        select.put("source", locationToJson(mapper, source));
+        select.put("moves", movesNode);
 
-          ObjectNode json = mapper.createObjectNode();
-          json.put("select", select);
+        ObjectNode json = mapper.createObjectNode();
+        json.put("select", select);
 
-          return json;
+        return json;
     }
 }

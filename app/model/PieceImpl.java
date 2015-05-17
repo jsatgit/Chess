@@ -33,6 +33,10 @@ public abstract class PieceImpl implements Piece {
         return this.location;
     }
 
+    public Player getOwner() {
+        return this.owner;
+    }
+
     public void setOwner(Player player) {
         this.owner = player;
     }

@@ -9,7 +9,7 @@ public class InvalidResult extends Result {
     @Override
     public JsonNode toJson(ObjectMapper mapper) {
         ObjectNode json = mapper.createObjectNode();
-        json.put("message", "invalid");
+        json.put("error", "invalid");
         return json; 
     } 
 }

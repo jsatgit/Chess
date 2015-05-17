@@ -7,6 +7,7 @@ define(['snap',
         var board = Snap(Config.board.width, Config.board.width);
         var whiteSquareStyle = getStyleByColour(Config.board.whiteSquareColour);
         var blackSquareStyle = getStyleByColour(Config.board.blackSquareColour);
+        var highlighting = [];
 
         setupSquares(); 
 
@@ -42,17 +43,39 @@ define(['snap',
                 strokeWidth : 0
             };
         }
+        
+        function getCapturingStyleByColour(colour) {
+            return {
+                fill 		: colour,
+                stroke 		: colour,
+                strokeWidth : 2,
+                "fill-opacity": 0
+            };
+        }
 
         this.append = function(piece) {
             board.append(piece);
         }
 
-        this.highlightPassing = function(x, y) {
-            setupSquare(x, y, {
-                fill : "green",
-                stroke : "green",
-                strokeWidth: 0
-            }); 
+        this.highlightPassingMove = function(colour, x, y) {
+            var width = Config.view.squareWidth;
+            var circle = board.circle((x + 0.5)*width, (y + 0.5)*width, width/16);
+            circle.attr(getStyleByColour(colour));
+            highlighting.push(circle);
+        }
+        
+        this.highlightCapturingMove = function(colour, x, y) {
+            var width = Config.view.squareWidth;
+            var rectangle = board.rect(x*width, y*width, width, width);
+            rectangle.attr(getCapturingStyleByColour(colour));
+            highlighting.push(rectangle);
+        }
+
+        this.removeHighlighting = function(passingMoves) {
+            highlighting.forEach(function(circle) {
+                circle.remove(); 
+            });
+            highlighting = [];
         }
     }
 

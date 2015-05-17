@@ -20,8 +20,8 @@ public class Command {
     }
 
     protected Location getLocation(JsonNode json) {
-        int x = Integer.parseInt(json.get("x").textValue());
-        int y = Integer.parseInt(json.get("y").textValue());
+        int x = json.get("x").asInt();
+        int y = json.get("y").asInt();
         return new Location(x, y);
     }
 }

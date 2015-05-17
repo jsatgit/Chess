@@ -10,4 +10,11 @@ public class Result {
         json.put("message", "default");
         return json;
     }
+    
+    protected ObjectNode locationToJson(ObjectMapper mapper, Location location) {
+        ObjectNode node = mapper.createObjectNode();
+        node.put("x", location.x);
+        node.put("y", location.y);
+        return node;
+    }
 }

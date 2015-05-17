@@ -5,7 +5,6 @@ import java.util.ArrayList;
 
 public abstract class Player {
     private Board board;
-    private Game game;
     private Colour colour;
     private Player otherPlayer;
     private List<Piece> pieces;
@@ -20,10 +19,6 @@ public abstract class Player {
 
         // TODO maybe separate this
         this.targetComputer = new TargetComputer(board);
-    }
-
-    public void setGame(Game game) {
-        this.game = game; 
     }
     
     public List<Piece> getPieces() {
@@ -55,10 +50,7 @@ public abstract class Player {
     }
 
     public void move(Location src, Location dest) {
-        if (game.isMyTurn(this)) {
-            Piece piece = board.get(src);          
-            piece.moveTo(dest);
-            game.onMoveEnd();
-        }
+        Piece piece = board.get(src);          
+        piece.moveTo(dest);
     }
 }

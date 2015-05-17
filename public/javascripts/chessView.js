@@ -17,6 +17,10 @@ define(['clickHandler',
         var loader = new Loader().withSubscription(this);
 
         var pieceBuilder = new PieceBuilder(board, sides, loader, clickHandler);
+        
+        var uiLoaded;
+
+        var ready;
 
         pieceBuilder.build("whitePawn", 0, 6);
         pieceBuilder.build("whitePawn", 1, 6);
@@ -58,8 +62,6 @@ define(['clickHandler',
         pieceBuilder.build("blackKnight", 6, 0);
         pieceBuilder.build("blackRook",   7, 0);
 
-        var uiLoaded;
-
         this.isUiLoaded = function() {
             return uiLoaded;
         } 
@@ -67,42 +69,20 @@ define(['clickHandler',
         this.onAllPiecesLoaded = function() {
             console.log("UI Loaded!");
             uiLoaded = true;
+            ready();
         } 
 
         this.movePiece = function(xSrc, ySrc, xDest, yDest) {
             board.movePiece(xSrc, ySrc, xDest, yDest);
         }
 
-        function addPiecesToJson(pieces, jsonArray) {
-            pieces.forEach(function(piece) {
-                jsonArray.push({
-                    type: Utils.type(piece),
-                    colour: Utils.getColourEnum(piece),
-                    location: {
-                        x: Utils.getXCoord(piece),
-                        y: Utils.getYCoord(piece)
-                    }
-                }); 
-            });
+        this.getSides = function() {
+            return sides;
         }
 
-        this.getConfig = function() {
-            var config = {
-                setup : {}
-            }; 
-
-            config.setup.pieces = [];
-            addPiecesToJson(sides.getWhitePieces(), config.setup.pieces);
-            addPiecesToJson(sides.getBlackPieces(), config.setup.pieces);
-
-            config.setup.players = {
-                white: "human",
-                black: "human"
-            }
-
-            return config;
+        this.registerReady = function(callback) {
+            ready = callback;
         }
-
     }		
 
     return ChessView;

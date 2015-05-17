@@ -21,5 +21,9 @@ public interface Piece {
 
     void setBoard(Board board);
 
+    Player getOwner();
+
+    void setOwner(Player player);
+
     Moves getCaptureMoves();
 }

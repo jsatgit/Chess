@@ -18,7 +18,7 @@ public class ChessSession {
     }
     
     private Result setupWith(SetupCommand command) {
-        if (this.game == null) {
+        if (game == null) {
             this.whitePlayer = command.getWhitePlayer(); 
             this.blackPlayer = command.getBlackPlayer(); 
             this.game = new Game()
@@ -33,22 +33,27 @@ public class ChessSession {
     }
 
     private Result selectWith(SelectCommand command) {
-        if (this.game != null) {
+        if (game != null) {
             Location location = command.getLocation();
             Piece piece = game.pieceAt(location);
-            Moves moves = piece.getMoves();
-            return new SelectResult(moves).success();
+            Player selectedPlayer = piece.getOwner();
+            if (game.isMyTurn(selectedPlayer)) {
+                Moves moves = piece.getMoves();
+                return new SelectResult(location, moves).success();
+            } else {
+                return new InvalidResult(); 
+            }
         } else {
             return new InvalidResult(); 
         }
     }
 
     private Result moveWith(MoveCommand command) {
-        if (this.game != null) {
+        if (game != null) {
             Location src = command.getSrc();
             Location dest = command.getDest();
             game.move(src, dest);
-            return new MoveResult().success();
+            return new MoveResult(src, dest).success();
         } else {
             return new InvalidResult(); 
         }

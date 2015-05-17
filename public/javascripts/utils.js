@@ -10,11 +10,11 @@ define(['constants'], function(Const) {
     }
 	
     Utils.getXCoord = function(element) {
-        return element.attr("xCoord");
+        return parseInt(element.attr("xCoord"));
     }
     
     Utils.getYCoord = function(element) {
-        return element.attr("yCoord");
+        return parseInt(element.attr("yCoord"));
     }
 
     String.prototype.startsWith = function (str){

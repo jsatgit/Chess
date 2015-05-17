@@ -7,13 +7,15 @@ define(['utils',
         var board;
         var connection;
 
+        connection.register("error", onError);
+
         function unSelectSource() {
             sourceSelected = undefined;
        }
 
         function selectSource(x, y) {
-            console.log("selected");
             sourceSelected = {x:x, y:y};
+            var piece = board.getPiece(x, y);
             connection.send({
                 select: {
                     x: x,
@@ -22,16 +24,16 @@ define(['utils',
             });
         }
 
+        function onError(message) {
+            sourceSelected = undefined; 
+        }
+
         // TODO clean up
         function occupiedSquareClick(x, y) {
             if (sourceSelected) {
-                if (sourceSelected.x == x && sourceSelected.y == y) {
-                    return;
-                }
-                // TODO weird look
                 var source = sourceSelected;
                 unSelectSource();
-                board.movePiece(source.x, source.y, x, y);
+                board.move(source.x, source.y, x, y);
             } else {
                 selectSource(x, y);
             }
@@ -41,7 +43,7 @@ define(['utils',
             if (sourceSelected) {
                 var source = sourceSelected;
                 unSelectSource();
-                board.movePiece(source.x, source.y, x, y);
+                board.move(source.x, source.y, x, y);
             }
         }
         

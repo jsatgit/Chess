@@ -18,7 +18,6 @@ public class Game {
     public Game withWhitePlayer(Player player) {
         // TODO repeated code with black player
         this.whitePlayer = player;
-        this.whitePlayer.setGame(this);
         this.whitePlayer.setColour(Colour.WHITE);
         this.whitePlayer.setBoard(board);
         return this;
@@ -26,7 +25,6 @@ public class Game {
 
     public Game withBlackPlayer(Player player) {
         this.blackPlayer = player;
-        this.blackPlayer.setGame(this);
         this.blackPlayer.setColour(Colour.BLACK);
         this.blackPlayer.setBoard(board);
         return this;
@@ -36,9 +34,18 @@ public class Game {
         return board.get(location);
     }
 
+    private void setOwner(Piece piece) {
+        if (piece.isWhite()) {
+            piece.setOwner(whitePlayer);
+        } else {
+            piece.setOwner(blackPlayer);
+        } 
+    }
+
     public Game withPieces(List<Piece> pieces) {
         for (Piece piece : pieces) {
             piece.setBoard(board);
+            setOwner(piece);
             board.place(piece, piece.getLocation());
             whitePlayer.addPiece(piece);
             blackPlayer.addPiece(piece);
@@ -54,8 +61,9 @@ public class Game {
     }
 
     public void move(Location src, Location dest) {
-        board.move(src, dest); 
+        currentPlayer.move(src, dest); 
         display.show();
+        onMoveEnd();
     }
 
     public boolean isMyTurn(Player player) {

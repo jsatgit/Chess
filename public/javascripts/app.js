@@ -1,16 +1,22 @@
 define(['domReady',
         'jquery',
         'chessView',
-        'connection'], function(domReady, $, ChessView, Connection) {
+        'connection',
+        'setup'], function(domReady, $, ChessView, Connection, Setup) {
     
     var connection = new Connection();
 
     var chessView = new ChessView(connection);
 
-    $("#startGame").click(function() {
+    function onReady(module) {
         if (chessView.isUiLoaded() && connection.isEstablished()) {
-            connection.send(chessView.getConfig());
+            var setup = new Setup(chessView.getSides());
+            connection.send(setup.json());
         }
-    });
+    }
+
+    connection.registerReady(onReady);
+    chessView.registerReady(onReady);
+
 
 });
