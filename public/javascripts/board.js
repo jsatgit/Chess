@@ -51,8 +51,14 @@ define(['boardView',
             }
         }
 
-        function checkDestination(xDest, yDest) {
+        function checkPassing(xDest, yDest) {
             return currentPassingMoves.locations.some(function(location) {
+                return (location.x === xDest && location.y === yDest);
+            });
+        }
+        
+        function checkCapturing(xDest, yDest) {
+            return currentCapturingMoves.locations.some(function(location) {
                 return (location.x === xDest && location.y === yDest);
             });
         }
@@ -72,8 +78,8 @@ define(['boardView',
         
         // TODO need abstraction for below 
         // need better interface
-        this.move = function(xSource, ySource, xDest, yDest) {
-            var allowedMove = checkDestination(xDest, yDest);
+        this.move = function(xSource, ySource, xDest, yDest, isCapturing) {
+            var allowedMove = checkPassing(xDest, yDest) || checkCapturing(xDest, yDest);
             if (allowedMove) {
                 connection.send({
                     move: {
@@ -87,8 +93,9 @@ define(['boardView',
                     } 
                 });
             }
-            boardView.removeHighlighting(currentPassingMoves.locations);
+            boardView.removeHighlighting();
             currentPassing = undefined;
+            currentCapturing = undefined;
         }
 
         this.getPiece = function(x, y) {

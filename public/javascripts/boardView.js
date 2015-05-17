@@ -62,6 +62,9 @@ define(['snap',
             var circle = board.circle((x + 0.5)*width, (y + 0.5)*width, width/16);
             circle.attr(getStyleByColour(colour));
             highlighting.push(circle);
+            Utils.setCoords(circle, x, y);
+            // TODO this is a hack
+            clickHandler.registerSquare(circle);
         }
         
         this.highlightCapturingMove = function(colour, x, y) {
@@ -69,9 +72,12 @@ define(['snap',
             var rectangle = board.rect(x*width, y*width, width, width);
             rectangle.attr(getCapturingStyleByColour(colour));
             highlighting.push(rectangle);
+            Utils.setCoords(rectangle, x, y);
+            // TODO this is a hack
+            clickHandler.registerPiece(rectangle);
         }
 
-        this.removeHighlighting = function(passingMoves) {
+        this.removeHighlighting = function() {
             highlighting.forEach(function(circle) {
                 circle.remove(); 
             });

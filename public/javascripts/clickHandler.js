@@ -29,11 +29,12 @@ define(['utils',
         }
 
         // TODO clean up
+        // if this target belongs to myself then select other source
         function occupiedSquareClick(x, y) {
             if (sourceSelected) {
                 var source = sourceSelected;
                 unSelectSource();
-                board.move(source.x, source.y, x, y);
+                board.move(source.x, source.y, x, y, true);
             } else {
                 selectSource(x, y);
             }
@@ -43,7 +44,7 @@ define(['utils',
             if (sourceSelected) {
                 var source = sourceSelected;
                 unSelectSource();
-                board.move(source.x, source.y, x, y);
+                board.move(source.x, source.y, x, y, false);
             }
         }
         
