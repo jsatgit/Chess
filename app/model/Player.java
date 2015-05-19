@@ -20,6 +20,15 @@ public abstract class Player {
         // TODO maybe separate this
         this.targetComputer = new TargetComputer(board);
     }
+
+    private Piece getPiece(Class<?> pieceType) {
+        for (Piece piece : pieces) {
+            if (piece.isKing()) {
+                return piece; 
+            }   
+        }
+        return null;
+    }
     
     public List<Piece> getPieces() {
         return pieces;
@@ -35,6 +44,11 @@ public abstract class Player {
 
     public void setOtherPlayer(Player otherPlayer) {
         this.otherPlayer = otherPlayer;
+        this.targetComputer.setOpponent(otherPlayer);
+    }
+
+    public void onAllPiecesAdded() {
+        targetComputer.setKing(getPiece(King.class)); 
     }
 
     public Player getOtherPlayer() {
@@ -52,5 +66,40 @@ public abstract class Player {
     public void move(Location src, Location dest) {
         Piece piece = board.get(src);          
         piece.moveTo(dest);
+    }
+
+    public void onTurnStarted() {
+        targetComputer.refresh();     
+    }
+
+    private Moves getMovesForNonKing(Piece piece) {
+        if (targetComputer.isUnderCheck()) {
+            return new Moves();  
+        } else {
+            return piece.getMoves();
+        }
+    }
+    
+    private void filterTargetedMoves(List<Location> moves) {
+        for (Location location : moves) {
+            if (targetComputer.isTargeted(location)) {
+                moves.remove(location);
+            }
+        } 
+    }    
+
+    private Moves filterKingMoves(Piece king) {
+        Moves moves = king.getMoves();
+        filterTargetedMoves(moves.getPassing());
+        filterTargetedMoves(moves.getCapturing());
+        return moves;
+    }
+
+    public Moves getMovesForPiece(Piece piece) {
+        if (piece.isKing()) {
+            return filterKingMoves(piece); 
+        } else {
+            return getMovesForNonKing(piece); 
+        }
     }
 }

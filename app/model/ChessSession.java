@@ -37,8 +37,9 @@ public class ChessSession {
             Location location = command.getLocation();
             Piece piece = game.pieceAt(location);
             Player selectedPlayer = piece.getOwner();
+            // TODO move this somewhere else
             if (game.isMyTurn(selectedPlayer)) {
-                Moves moves = piece.getMoves();
+                Moves moves = selectedPlayer.getMovesForPiece(piece);
                 return new SelectResult(location, moves).success();
             } else {
                 return new InvalidResult(); 

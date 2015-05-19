@@ -138,4 +138,7 @@ public abstract class PieceImpl implements Piece {
         return moves;
     }
 
+    public boolean isKing() {
+        return this.getClass().equals(King.class); 
+    }
 }

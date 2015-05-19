@@ -26,4 +26,6 @@ public interface Piece {
     void setOwner(Player player);
 
     Moves getCaptureMoves();
+
+    boolean isKing();
 }

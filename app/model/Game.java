@@ -47,9 +47,14 @@ public class Game {
             piece.setBoard(board);
             setOwner(piece);
             board.place(piece, piece.getLocation());
-            whitePlayer.addPiece(piece);
-            blackPlayer.addPiece(piece);
+            if (piece.isWhite()) {
+                whitePlayer.addPiece(piece);
+            } else {
+                blackPlayer.addPiece(piece);
+            }
         }
+        whitePlayer.onAllPiecesAdded();
+        blackPlayer.onAllPiecesAdded();
         return this;
     }
 
@@ -57,6 +62,7 @@ public class Game {
         this.currentPlayer = whitePlayer; 
         this.whitePlayer.setOtherPlayer(blackPlayer);
         this.blackPlayer.setOtherPlayer(whitePlayer);
+        currentPlayer.onTurnStarted();
         return this;
     }
 
@@ -77,11 +83,12 @@ public class Game {
     private void gameOver() {
     }
     
-    public void onMoveEnd() {
+    private void onMoveEnd() {
         if (isCheckMate()) {
             gameOver(); 
         } else {
             currentPlayer = currentPlayer.getOtherPlayer(); 
+            currentPlayer.onTurnStarted();
         }
     }
 }

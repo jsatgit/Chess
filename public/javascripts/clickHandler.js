@@ -11,7 +11,7 @@ define(['utils',
 
         function unSelectSource() {
             sourceSelected = undefined;
-       }
+        }
 
         function selectSource(x, y) {
             sourceSelected = {x:x, y:y};
